@@ -1,0 +1,654 @@
+    
+
+     这是一个简易教程	
+	 https://www.bootcss.com/p/git-guide/
+	 
+	 https://www.progit.cn/#_git_branches_overview
+   
+   
+   
+     新建一个文件：  touch yo.txt  
+   
+     
+     
+	 git (直接在输入git，可以看见很多的命令)
+	 1. 查看你git的版本， git --version
+	 
+	 2. 查看你git的配置，git config -l  或者是 git confit --list
+	 (C:\Users\abc>git config -l
+		http.sslcainfo=E:/Git/mingw64/ssl/certs/ca-bundle.crt
+		http.sslbackend=openssl
+		diff.astextplain.textconv=astextplain
+		core.autocrlf=true
+		core.fscache=true
+		core.symlinks=false
+		credential.helper=manager
+		user.name=xiaowu
+		user.email=xiaowu@xiaowu.com
+		credential.helper=manager)
+	 
+	 如果没有设置，就用下面的进行设置
+     git config --global user.name "myname"
+     git config --global user.email  "test@gmail.com" 
+	  
+	  
+	  
+	 创建仓库  git  init test2 
+	 
+	  查看仓库状态：    git   status
+	  
+	  
+	  提交更改的东西,(提交之前是红色的  ，提交之后是绿色的)
+	   git add .   ()
+	   
+	   git commit  -m "文件描述"
+	   
+	   
+	   git add . && git commit -m "add命令和commit命令一起使用"
+	   
+	   
+	   
+	   
+	   切换分支  master 是分支的名字
+	   git checkout master
+	   
+	   
+	   查询所有的 分支  git  log
+	                    git log -p  查看你修改了那些内容，可以看见你修改的东西。
+	   
+	   按  	Q是推出程序。
+	   
+	   
+	   
+	   git tag -a 标签名 -m 
+	   比如 git  tag   -a v1 -m "第一版终结"
+	   
+	   git  tag
+	   
+	   git show v1 (查看某个版本)
+	   
+	   
+	   git branch   ----查看所有的分支信息
+	   
+	   创建分支：
+	   git branch  rich (rich  是分支的名字。)
+	   
+	   
+	   
+	   git log --oneline  查看一条线上的所有log信息。
+	   
+	   git log --all --graph   图形化查看log信息
+	   
+	   
+	  当我们在一条主线上开发项目的时候，当我们要回到一起开发的某个节点的时候，
+       我们可以查看我们的提交信息
+        git log --oneline --graph --all
+        
+       产看的信息是 比如：
+	    git log --oneline --graph --all
+       * 42d4682 (HEAD -> master) 提交第三章
+       * d24bf8e 提交第二章
+       * dcba431 1
+	   
+	   比如我们要回到 第二章的是，建立分支进行开发：  
+	   git checkout d24bf8e   这个时候就切换到了这个节点，，我们就可以在这个节点建立
+	   分支进行其他的开发
+	   git branch rich   创建一个新的分支
+	   
+	   然后切换分支  git checkout rich  切换到新的分支上面去
+	   
+	   这个是一个图像化的东西，
+	   $ git log --oneline --graph --all
+		* 98b6f15 (rich) rich分支上的添加数据集
+		| * 42d4682 (HEAD -> master) 提交第三章
+		|/
+		* d24bf8e 提交第二章
+		* dcba431 1
+
+
+
+   //// 这个可以查看具体的日志信息
+
+     
+    合并分支 (首先我们要把我们的分支切换到主分支master上面来)
+	git merge  分支名
+	
+	
+	一般情况下都是有冲突的   比如下面的    
+	1，我是第一个版本的第一章
+		2，我是第一个版的第二章
+		<<<<<<< HEAD
+		3. 我是第一个版的第三章
+		=======
+
+
+		 3. 这个是新分支上的一个数据，新添加的内容，。
+		>>>>>>> rich
+	
+	
+	说明： Head一般指的是当前分支     
+
+          其他分支，都有分支的名字（例如rich分支）
+	
+	 需要自己解决这个冲突
+	 
+   =========================下面是讲是推送到远程仓库。======================================	
+
+   可以用github  
+   
+    git remote  add   远程仓库的名字    远程地址
+	
+	eg : git  remote add github xxxx.git  
+	
+	
+	git remote  ----罗列所有的远程仓库
+	
+	git remote -v   ----罗列所有远程的详细信息。
+	
+   {
+   例如：
+   abc@DESKTOP-LREK85D MINGW64 ~/Desktop/gittest (master)
+	$ git remote add origin https://github.com/githubbfw/gittest.git
+
+	abc@DESKTOP-LREK85D MINGW64 ~/Desktop/gittest (master)
+	$ git remote
+	origin
+
+	abc@DESKTOP-LREK85D MINGW64 ~/Desktop/gittest (master)
+	$ git remote -v
+	origin  https://github.com/githubbfw/gittest.git (fetch)
+	origin  https://github.com/githubbfw/gittest.git (push)
+ }
+   
+   // 推送分支到master分支上去  norich 是分支名字
+    git push origin norich:master
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+   
+   
+   
+   git push -u 远程名   分支名
+   
+   eg:   git push -u github  master
+    
+   
+   直接在远程去拉取代码： 
+   
+   git clone
+   
+   
+  从远程服务器拉取代码：
+  git pull  
+  
+  （git pull  跟下面的2个代码的意思是一样的
+     
+	 git fetch && git merge）
+   
+   注意多人合作的时候
+       先pull 然后合并远程端后 再push
+       1.gut status 2.git add 3.git pull 4.git push
+ 
+
+
+     ===========================这个地方是讲git的忽略文件=========修改忽略文件========================
+     参考：
+	 https://www.cnblogs.com/zhuchenglin/p/7128383.html
+
+
+    1. 在使用git的时候，有些文件是不需要上传的，所以就可以修改   .gitignore 
+	
+	2. 例如
+	  如果是对所有的文件都取消跟踪的话，就是
+
+		   git rm -r --cached .       //不删除本地文件
+
+		   git rm -r --f             //删除本地文件
+
+
+      对某个文件取消跟踪 
+
+      git rm --cached readme.txt   //删除read.txt的跟踪，并保留本地文件
+      git rm --f read.txt      	   //删除read.txt的跟踪，并删除本地文件
+	  
+
+ 	 千万要注意：
+
+			如果你在创建.gitignore文件之前就已经push项目了，那么即时你在.gitignore文件中写入新的规则，这些规则也不会起作用。
+
+			有时候在项目开发过程中，突然心血来潮想把某些目录或文件加入忽略规则，按照上述方法定义后发现并未生效，原因是.gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。那么解决方法就是先把本地缓存删除（改变成未track状态），然后再提交：
+
+			git rm -r --cached .
+			git add .
+			git commit -m 'update .gitignore'
+
+			 
+
+			如果还是不行的话
+
+			在先将想要取消追踪的文件移到项目目录外)，并提交，然后提交后再将刚刚移出的文件再移入项目中即可
+
+			 
+
+			 注意：
+			不要误解了 .gitignore 文件的用途，该文件只能作用于 Untracked Files，也就是那些从来没有被 Git 记录过的文件（自添加以后，从未 add 及 commit 过的文件）。
+			如果文件曾经被 Git 记录过，那么.gitignore 就对它们完全无效。
+
+
+
+
+     ======================================================================			
+	 
+	 这里说一个实际可以用到的情况，，
+	1.  有一个文件，我们添加到忽略文件里面了，（实际上，是不应该添加到忽略文件里面的 ）
+	 
+	   我们自己把这个文件的忽略去掉就好了，然后提交就行了
+	   
+	2. 对于某个文件，不应该添加忽略，但是没有忽略，
+
+      这个时候，就是	
+	  
+	对某个文件取消跟踪 
+
+      git rm --cached readme.txt   //删除read.txt的跟踪，并保留本地文件
+      git rm --f read.txt      	   //删除read.txt的跟踪，并删除本地文件
+	   
+	   
+	   
+	   或者你所有的跟踪都重新添加
+	   
+		   git rm -r --cached .       //不删除本地文件
+
+		   git rm -r --f             //删除本地文件
+
+	 
+	 
+	 
+	 =====================================================================
+	 1 查看分支：  git branch --all (git branch -a)(有时候 git branch 是看不起分支信息)
+	 
+	 2. 向hx分支上面推送代码（提交之前先推送一下 git pull）
+	 比如：
+	   abc@DESKTOP-LREK85D MINGW64 /d/template_NG_app/BW-NG-app-flutter (hx)
+       $ git push origin hx
+
+	 
+	 删除某个文件   ----yzapp/.idea/workspace.xml
+	 
+	 $ git rm -f yzapp/.idea/workspace.xml
+
+
+
+
+
+
+
+   创建新分支并立即切换到新分支：$ git checkout -b [name]
+   
+   
+   查看仓库状态
+	 要随时掌握工作区的状态，使用 git status 命令。
+
+	 如果 git status 告诉你有文件被修改过，用 git diff 可以查看修改内容
+	 
+	 
+	 
+   HEAD 指向的版本就是当前版本
+
+	Git 允许我们在版本的历史之间穿梭，使用命令 git reset --hard commit_id
+
+	穿梭前，用 git log 可以查看提交历史，以便确定要回退到哪个版本。
+
+	要重返未来，用 git reflog 查看命令历史，以便确定要回到未来的哪个版本。
+
+	 
+	 
+
+    git stash
+
+   并不是你不想提交，而是工作只进行到一半，还没法提交，预计完成还需1天时间。但是，必须在两个小时内修复该bug，怎么办？
+
+  幸好，Git还提供了一个stash功能，可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作：
+
+
+   git stash list
+   
+   工作现场还在，Git把stash内容存在某个地方了，但是需要恢复一下，有两个办法：
+
+   一是用git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；
+
+   另一种方式是用git stash pop，恢复的同时把stash内容也删了：
+   
+   
+   $ git log -1    最后一次提交代码
+   
+   
+   遇见一个场景：提交代码到远端的时候，出现这个问题
+   https://blog.csdn.net/weixin_41287260/article/details/89742151
+   
+   $ git push -u origin kl
+	To 192.168.1.153:xyang/BW-NG-app-flutter.git
+	 ! [rejected]          kl -> kl (non-fast-forward)
+	error: failed to push some refs to 'git@192.168.1.153:xyang/BW-NG-app-flutter.git'
+	hint: Updates were rejected because the tip of your current branch is behind
+	hint: its remote counterpart. Integrate the remote changes (e.g.
+	hint: 'git pull ...') before pushing again.
+	hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+	abc@DESKTOP-LREK85D MINGW64 /d/template_NG_app/BW-NG-app-flutter (kl)
+
+
+   解决方案：
+   $ git pull origin kl
+   $ git push origin kl
+   
+   
+   git 常用的命令：
+
+      
+  
+  -----推送本地分支到远程库
+    $ git pull origin kl
+    $ git push origin kl  
+         
+   
+   
+   
+     
+	 
+	 
+ ------git branch -a看不到远程分支(同事新建一个分支，提交到远程，本地git管理看不到分支，)
+   
+      先用git fetch命令更新remote索引
+      再用git branch -a查看
+	  
+	  
+	  
+
+ --------删除分支
+		 删除本地的bug_xzx分支
+
+		  git branch -d bug_xzx 
+		  (如果本地分支没有提交合并，就会提示 error: The branch 'changan' is not fully merged.
+                                      If you are sure you want to delete it, run 'git branch -D changan')
+		  git branch -D bug_xzx
+
+		4、删除远程的bug_xzx分支
+
+		 git push origin --delete bug_xzx 
+	  
+   
+   
+--------创建新分支  并切换   git checkout -b feature1
+
+
+
+
+-------  查看远端地址 git remote –v 
+         查看配置 git config --list
+
+
+
+	--------git本地分支和远程分支改名 
+
+			#1 将本地分支进行改名
+			git branch -m old_branch new_branch
+			 
+			#2 将远程分支的老分支删除
+			git push origin :old_branch
+			 
+			#3 将改名后的分支push到远程
+			git push origin new_branch
+
+   
+  ---------------------------这个的命令都是一个目的，查看提交的修改内容------------------------------------------------------------------------------------- 
+   
+   ------ git log 打印出所有的提交记录
+          git log -3 --stat
+         若查看某一次提交的内容，执行下面命令（可以不加--stat）
+         git show 548c72f42f51c22dbf2fdf133426e094c59789e4 --stat
+   
+   ------git 查看commit提交的内容
+
+      1. 查看最近一次的提交内容
+	        git log
+            git show
+        
+      2.查看指定commit hashID的所有修改：
+             git log
+             git show commitId
+			 
+			 
+	  3.查看最近n次提交的修改（注意n可以修改为多次，）
+		 git log -p -n
+		 指定n为1则可以查看最近一次修改的内容		 
+
+  -------------------------------------------有时候git在执行命令的时候，会跳转到 git bash vim 这样的命令界面，退出不了--------------------------------------------------------------------- 
+   
+   1。遇见>>>>  这样的  使用 ctrl  +D --这个可以退出部分
+   
+   2 ~~~~~ 遇见这样的  按下Esc (退出编辑状态)； 接着连按两次大写字母Z，你会惊喜的发现，终于保存好退出来了！
+   
+   
+   3. git  END 怎么退出
+   
+      使用:q就可以退出了
+   
+   
+   
+	 
+	 
+   3 这个情况是合并的时候没有加-m"合并信息" 
+
+	1.按键盘字母 i 进入insert模式
+
+	2.修改最上面那行黄色合并信息,可以不修改
+
+	3.按键盘左上角"Esc"
+
+	4.输入":wq",注意是冒号+wq,按回车键即可
+	 
+	 (这个命令可以去验证-------------------git ct --amend)
+	 
+	 
+	 1。-----------------今天的事情记录一下，或许以后碰得到-------------------------
+	   场景：一个项目的某个分支，比如rich分支，，现在这个分支，开发的比较完善，我想把它作为一个单独的项目，分离出去，关联另外一个仓库，
+	   
+	   这个场景应该，在一些大的公司会经常碰见吧，这个也是实际开发过程中，会已经的一个问题，
+	 
+	 
+	 操作流程：
+	 
+	 1.直接把本地项目的.git文件删除，，重新git init -> 这个时候，本地的项目就变成了master分支了
+	 2.关联远程仓库 比如: git remote add origin git@192.168.1.153:holly/android_integrate.git
+	 
+	 3. 操作 git st  git add . git commit -m "",
+	 
+	  4. 然后我操作了 git push -u origin master;
+	    [
+		 ! [rejected]        master -> master (fetch first)
+           error: failed to push some refs to 'git@192.168.1.153:holly/android_integrate.git'
+		   
+		hint: Updates were rejected because the remote contains work that you do
+		hint: not have locally. This is usually caused by another repository pushing
+		hint: to the same ref. You may want to first integrate the remote changes
+		hint: (e.g., 'git pull ...') before pushing again.
+		hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+        ]
+		
+	 查询：说是第一次应该合并项目，首先要去拉取项目
+     5： git pull origin master	  
+       
+	   warning: no common commits
+		remote: Counting objects: 3, done.
+		remote: Total 3 (delta 0), reused 0 (delta 0)
+		Unpacking objects: 100% (3/3), done.
+		From 192.168.1.153:holly/android_integrate
+		 * branch            master     -> FETCH_HEAD
+		 * [new branch]      master     -> origin/master
+		fatal: refusing to merge unrelated histories
+
+    6 执行第五步的方法，执行5之后，就会出现在这个
+	 
+	  解释：其实这个问题是因为 两个 根本不相干的 git 库， 一个是本地库， 一个是远端库， 然后本地要去推送到远端， 远端觉得这个本地库跟自己不相干， 所以告知无法合并
+	
+     git pull origin master --allow-unrelated-histories
+	 
+	 
+	 From 192.168.1.153:holly/android_integrate
+	 * branch            master     -> FETCH_HEAD
+	 Merge made by the 'recursive' strategy.
+	 A.txt | 0
+	 1 file changed, 0 insertions(+), 0 deletions(-)
+	 create mode 100644 A.txt
+
+	
+	7. 
+	 
+	
+
+   --- 推送本地分支到服务器上面去：（已经有跟远端的服务器绑定到一起了）
+     git push origin youxin
+         
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 一系列操作
+	 1.  git.init
+	 2.  git remote add origin https://github.com/xienb/NPC.git
+	 3   git add .
+     4   git commit -m '初始化项目'
+     5   git push -u origin master
+	 
+	 
+	 
+	 ------------------------------------------------------
+	 
+	 执行git add 项目之后出现
+	 The file will have its original line endings in your working directory.
+	 解决方法：
+	git config –global core.autocrlf false
+	原因就是：
+
+	原因是路径中存在 / 的符号转义问题，false就是不转换符号默认是true，相当于把路径的 / 符号进行转义，这样添加的时候就有问题
+	 
+	 
+	 
+	 
+	 
+	 
+	查看修改内容------
+		git diff ：查看没有暂存的已修改的文件内容
+		git diff --cached ：查看已暂存的将要添加到下次提交的内容
+		git status -v ：查看已暂存的已修改的文件内容
+		
+		
+		
+	git 恢复修改的文件-------------有点时候，有一个文件修改太多了，并且撤回修改的时候，还是现实有改动，本文件显示的是红色的，这个时候，我想恢复到我修改之前。
+
+	
+	
+	对于修改的文件有两种情况：
+
+	只是修改了文件，没有任何 git 操作--（这种情况，我亲自试过，有效）
+	-----$ git checkout -- aaa.txt # aaa.txt为文件名
+	
+	修改了文件，并提交到暂存区（即编辑之后，gitadd但没有 git commit -m ....）
+	
+	$ git log --oneline    # 可以省略
+	$ git reset HEAD    # 回退到当前版本
+	$ git checkout -- aaa.txt    # aaa.txt为文件名
+	
+	修改了文件，并提交到仓库区（即编辑之后，gitadd和 git commit -m ....）
+	
+	$ git log --oneline    # 可以省略
+	$ git reset HEAD^    # 回退到上一个版本
+	$ git checkout -- aaa.txt    # aaa.txt为文件名
+	
+	
+	查看分支上的操作记录
+     git reflog
+	
+	
+	
+	-------查看修改内容-------------------------------
+	知道commit id的情况下:
+	1. 获取commit id
+	   git log 
+
+	2. 查看commit内容
+	   git show commit_id
+
+	查看最近n次提交的修改
+	   git log -p -n
+	指定n为1则可以查看最近一次修改的内容
+	
+	
+	----------------------------------------创建一个新的分支，，，比如基于，你的每一次提交的基础上，创建分支：
+	   git checkout -b basic 138b9ff（138b9ff  这个你你的当前分支的某一次提交的log，id的前7位，）
+
+	
+	
+	--查看远程信息   ---log remote -v 
+	
+	
+	Git回滚代码到某个commit
+		回退命令：
+
+		$ git reset --hard HEAD^ 回退到上个版本
+		$ git reset --hard HEAD~3 回退到前3次提交之前，以此类推，回退到n次提交之前
+		$ git reset --hard commit_id 退到/进到 指定commit的sha码  (git  log -a  查看当前log日志)
+
+		强推到远程：
+
+		$ git push origin HEAD --force
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+ 
