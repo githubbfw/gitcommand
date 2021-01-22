@@ -622,6 +622,28 @@
 	
 	
 	
+	一：本地创建了项目，并且有分支， 把各个分支，都提交到git上面去
+	
+	 git remote add origin ssh://git@18.166.25.175:2224/samm/bw-android.git
+	 复制错了git地址，应该是http的，不是ssh的。
+ 
+    $ git push -u origin fengzhi1
+	ssh: connect to host 18.166.25.175 port 2224: Connection timed out
+	fatal: Could not read from remote repository.
+
+ 
+	   移除错误的远程连接。
+	   git remote rm origin
+ 
+     重新建立远程连接。
+    git remote add origin http://18.166.25.175:9980/samm/bw-android.git
+	推送项目分支。
+    git push -u origin fengzhi1
+	
+	
+    做好上面的步骤之后，切换分支，推送分支，git上面不用自己单独创建分支，（没有的这个分支，git会在推送的时候，创建一个分支。）
+	
+	如果分支，内容修改了  在本地以及提交了，，推送在远程分支上   git push origin fenzhi1
 	
 	
 	
