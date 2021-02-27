@@ -646,6 +646,15 @@
 	如果分支，内容修改了  在本地以及提交了，，推送在远程分支上   git push origin fenzhi1
 	
 	
+	Git 如何在不提交当前分支修改的内容的情况下切换到其它分支进行操作--主要是不想提交当前项目到git，因为可能还没有改好
+	
+	使用 git stash 
+	
+	1. 在当前不想提交分支上，输入 git  stash (存储)
+	2. 查看 $ git status list 命令  会看到已经刚才的修改已存储，即 stash@{0}，id 为 xxx
+	3.  切换到你要修改的其他分支上  git checkout xxx,
+	4.  当xxx分支问题处理完成之后，切换原来的分支
+	5.  使用$ git stash apply stash@{0}  就可以恢复原来stash的内容，可以看见之前为完成的提交
 	
 	
 	
